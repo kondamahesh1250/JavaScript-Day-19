@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,
+        th,
+        td,
+        tr {
+            border: 2px solid;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 20px;
+            font-size: 1rem;
+        }
+
+        img {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let URL = "https://dummyjson.com/quotes";
+
+        let table = document.createElement("table");
+        let thead = document.createElement("thead");
+        let trHead = document.createElement("tr");
+        thead.appendChild(trHead);
+
+        let theadData = ["id", "quote", "author"];
+
+        theadData.forEach(element => {
+            let th = document.createElement("th");
+            th.innerHTML = element;
+            trHead.appendChild(th);
+        })
+
+        let tbody = document.createElement("tbody");
+
+        fetch(URL).then(response => response.json())
+            .then(data => {
+                    // console.log(data["quotes"]);
+                    for (j of data["quotes"]) {
+                        console.log(j);
+                        let tr = document.createElement("tr");
+                        for(k in j){
+                            let td = document.createElement("td");
+                            td.innerHTML=j[k];
+                            tr.appendChild(td)
+                        }
+                        tbody.appendChild(tr)
+                    }
+            })
+
+        table.append(tbody,thead);
+        document.body.appendChild(table)
+    </script>
+</body>
+
+</html>
